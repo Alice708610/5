@@ -170,11 +170,13 @@ usertrapret(void)
     // Jump to userret in trampoline.S
     uint64 trampoline_userret = TRAMPOLINE + (userret - trampoline);
     uint64 fn = trampoline_userret;
-    // RISC-V: jalr r1, r2 (jump to register)
+    // RISC-V: set up a0=trapframe, a1=satp, then jump to userret
     asm volatile(
-        "jalr r0, %0"
-        : : "r"(fn), "a0"(p->trapframe), "a1"(satp)
-        : "memory"
+        "mv a0, %0\n"
+        "mv a1, %1\n"
+        "jalr r0, %2"
+        : : "r"(p->trapframe), "r"(satp), "r"(fn)
+        : "a0", "a1", "memory"
     );
 }
 
