@@ -6,15 +6,7 @@
 #include "riscv.h"
 #include "defs.h"
 
-// QEMU virt machine PLIC mapped at 0x0c000000
-#define PLIC_BASE 0x0c000000L
-
-// PLIC register offsets
-#define PLIC_PRIORITY(id)    (PLIC_BASE + (id) * 4)
-#define PLIC_PENDING(id)     (PLIC_BASE + 0x1000 + ((id) / 32) * 4)
-#define PLIC_ENABLE(hart, id) (PLIC_BASE + 0x2000 + (hart) * 0x80 + ((id) / 32) * 4)
-#define PLIC_THRESHOLD(hart) (PLIC_BASE + 0x200000 + (hart) * 0x1000)
-#define PLIC_CLAIM(hart)     (PLIC_BASE + 0x200004 + (hart) * 0x1000)
+// PLIC_BASE and register offsets are already defined in riscv.h
 
 void
 plicinit(void)
