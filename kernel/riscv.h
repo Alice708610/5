@@ -178,7 +178,12 @@ static inline uint64 r_sepc(void) {
 }
 
 // Cause register
-static inline uint64 r_scause(void) {
+static inline uint64 r_scause(void)
+{
+  uint64 x;
+  asm volatile("csrr %0, scause" : "=r" (x));
+  return x;
+}
   uint64 x;
   asm volatile("csrr %0, scause" : "=r" (x));
   return x;

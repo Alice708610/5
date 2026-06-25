@@ -1,7 +1,7 @@
 /* kernel.ld - Linker script for ZephyrOS kernel (RISC-V 64, QEMU virt) */
 
 OUTPUT_ARCH("riscv")
-ENTRY(entry)
+ENTRY(_start)
 
 /*
  * Memory layout for QEMU virt machine:

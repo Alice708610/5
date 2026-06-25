@@ -11,6 +11,29 @@
 struct proc proc[NPROC];
 struct cpu cpus[NCPU];
 
+// Per-CPU data: indexed by hartid, points to the current cpu struct
+static struct cpu *cpus_hart[NCPU];
+
+// Return current hart ID (CPU number)
+int
+cpuid(void)
+{
+  int id = r_mhartid();
+  return id;
+}
+
+// Return pointer to the current CPU's struct cpu
+struct cpu *
+mycpu(void)
+{
+  int id = cpuid();
+  struct cpu *c = &cpus[id];
+  // Initialize per-CPU pointer on first use
+  if (!cpus_hart[id])
+    cpus_hart[id] = c;
+  return c;
+}
+
 void
 procinit(void)
 {

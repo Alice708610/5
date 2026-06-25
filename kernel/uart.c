@@ -44,22 +44,5 @@ uartgetc(void)
   return -1;
 }
 
-void
-consoleinit(void)
-{
-  volatile unsigned char *uart = (volatile unsigned char *)UART0;
-
-  // Disable interrupts
-  uart[IER] = 0x00;
-  // Enable FIFO, clear buffers
-  uart[FCR] = FCR_FIFO_ENABLE | FCR_FIFO_CLEAR;
-  // 8 bits, no parity, one stop bit (8N1)
-  uart[LCR] = LCR_8N1;
-  // IRQs enabled, RTS/DSR set
-  uart[MCR] = 0x00;
-
-  uart_initialized = 1;
-}
-
 // UART interrupt: check if data available, return char or -1
 // Actual processing is done by consoleintr() in console.c
