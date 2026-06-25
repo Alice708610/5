@@ -184,10 +184,6 @@ static inline uint64 r_scause(void)
   asm volatile("csrr %0, scause" : "=r" (x));
   return x;
 }
-  uint64 x;
-  asm volatile("csrr %0, scause" : "=r" (x));
-  return x;
-}
 
 // Trap value (faulting address)
 static inline uint64 r_stval(void) {
