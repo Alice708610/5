@@ -22,8 +22,6 @@
 #define FCR_FIFO_CLEAR  0x06
 #define LCR_8N1        0x03
 
-static int uart_initialized = 0;
-
 void
 uartputc(int c)
 {
