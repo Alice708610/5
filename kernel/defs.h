@@ -106,6 +106,8 @@ void    freeproc(struct proc *);
 void    forkret(void);
 pagetable_t proc_pagetable_alloc(struct proc *);
 int     killed(struct proc *);
+void    sleep_lock(void *, struct spinlock *);
+void    wakeup(void *);
 
 // --- exec.c ---
 int     exec(char *, char **);
