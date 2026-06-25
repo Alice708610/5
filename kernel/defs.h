@@ -3,7 +3,6 @@
 #include "types.h"
 #include "param.h"
 
-struct context;
 struct spinlock;
 struct proc;
 struct trapframe;
