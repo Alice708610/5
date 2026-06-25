@@ -5,6 +5,8 @@
 
 // Physical addresses (QEMU virt machine)
 #define PHYSTOP   0x88000000L   // Top of physical RAM (128MB from 0x80000000)
+#define KERNBASE  0x80000000L   // Kernel base address
+#define KERNLINK  KERNBASE      // Alias: kernel start address
 
 #define UART0     0x10000000L   // NS16550A UART
 #define VIRTIO0   0x10001000L   // VirtIO MMIO disk
