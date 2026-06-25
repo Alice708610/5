@@ -1,0 +1,26 @@
+# ZephyrOS .gitignore
+# RISC-V OS kernel project
+
+# Build artifacts
+*.o
+*.d
+*.elf
+*.bin
+*.asm
+*.sym
+*.tmp
+
+# QEMU trace files
+qemu.log
+fs.img
+
+# IDE files
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

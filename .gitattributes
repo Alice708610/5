@@ -1,0 +1,9 @@
+# Force LF line endings for all source files
+* text=auto eol=lf
+
+# Binary files
+*.bin binary
+*.elf binary
+*.o binary
+initcode.bin binary
+kernel.bin binary
