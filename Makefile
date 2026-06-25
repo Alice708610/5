@@ -18,7 +18,6 @@ QEMUOPTS = -machine virt -bios none -kernel $(K)/kernel -m 128M -smp $(CPUS) -no
 OBJS = \
   $(K)/entry.o \
   $(K)/console.o \
-  $(K)/exec.o \
   $(K)/kalloc.o \
   $(K)/kernelvec.o \
   $(K)/main.o \
@@ -28,8 +27,6 @@ OBJS = \
   $(K)/spinlock.o \
   $(K)/string.o \
   $(K)/swtch.o \
-  $(K)/syscall.o \
-  $(K)/sysproc.o \
   $(K)/trap.o \
   $(K)/uart.o \
   $(K)/vm.o \
@@ -56,7 +53,7 @@ $(K)/%.o: $(K)/%.S
 clean:
 	rm -f $(K)/*.o $(K)/*.d $(K)/*.asm $(K)/*.sym $(K)/kernel $(K)/initcode $(K)/initcode.out fs.img
 
-run: $(K)/kernel $(K)/initcode
+run: $(K)/kernel
 	$(QEMU) $(QEMUOPTS)
 
 .PHONY: all clean run
