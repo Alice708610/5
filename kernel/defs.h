@@ -43,6 +43,8 @@ void    wakeup(void *);
 void            tvinit(void);
 void            timerinit(void);
 void            intr_on(void);
+void            intr_off(void);
+void            w_sbi_set_timer(uint64 when);
 void            usertrap(void);
 void            usertrapret(void);
 void            kerneltrap();

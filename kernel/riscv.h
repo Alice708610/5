@@ -277,6 +277,19 @@ static inline uint64 r_misa(void) {
 
 // ==================== Interrupt Enable Helpers ====================
 
+// SBI (Supervisor Binary Interface) calls
+#define SBI_EXT_TIME    0x54494D45
+#define SBI_SET_TIMER   0
+static inline void w_sbi_set_timer(uint64 when) {
+  asm volatile(
+    "li a7, %1\n"      // a7 = SBI_EXT_TIME
+    "li a6, %2\n"      // a6 = SBI_SET_TIMER
+    "mv a0, %0\n"      // a0 = when
+    "ecall"
+    :: "r"(when), "I"(SBI_EXT_TIME), "I"(SBI_SET_TIMER)
+    : "a7", "a6", "a0", "memory");
+}
+
 // Read machine-level sstatus (used to check SIE bit)
 static inline uint64 r_sstatus_raw(void) {
   return r_sstatus();
