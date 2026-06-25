@@ -1,3 +1,6 @@
+#ifndef TYPES_H
+#define TYPES_H
+
 // types.h - Basic types for ZephyrOS (RISC-V 64-bit)
 
 typedef signed char         int8;
@@ -33,3 +36,5 @@ struct context {
     uint64 s10;
     uint64 s11;
 };
+
+#endif /* TYPES_H */
