@@ -277,17 +277,11 @@ static inline uint64 r_misa(void) {
 
 // ==================== Interrupt Enable Helpers ====================
 
-// SBI (Supervisor Binary Interface) calls
-#define SBI_EXT_TIME    0x54494D45
-#define SBI_SET_TIMER   0
+// Set timer compare value (writes to CLINT mtimecmp at 0x02004000)
+#define CLINT_MTIMECMP(hart) (0x02004000L + (hart) * 8)
 static inline void w_sbi_set_timer(uint64 when) {
-  asm volatile(
-    "li a7, %1\n"      // a7 = SBI_EXT_TIME
-    "li a6, %2\n"      // a6 = SBI_SET_TIMER
-    "mv a0, %0\n"      // a0 = when
-    "ecall"
-    :: "r"(when), "I"(SBI_EXT_TIME), "I"(SBI_SET_TIMER)
-    : "a7", "a6", "a0", "memory");
+  volatile uint64 *mtimecmp = (volatile uint64 *)CLINT_MTIMECMP(0);
+  *mtimecmp = when;
 }
 
 // Read machine-level sstatus (used to check SIE bit)
