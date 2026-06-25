@@ -84,13 +84,14 @@
 #define PX(level, va) ((((uint64)(va)) >> (PGSHIFT + (level)*9)) & 0x1FF)
 #define PGROUNDUP(sz)  (((sz)+PGSIZE-1) & ~(PGSIZE-1))
 
-// PLIC (Platform-Level Interrupt Controller)
-#define PLIC_PRIORITY    0x0C000000L
-#define PLIC_PENDING     0x0C001000L
-#define PLIC_ENABLE(h)   (0x0C002000L + (h) * 0x80)
-#define PLIC_THRESHOLD(h) (0x0C200000L + (h) * 0x1000)
-#define PLIC_CLAIM(h)    (0x0C200004L + (h) * 0x1000)
-#define UART0_IRQ        10
+// PLIC (Platform-Level Interrupt Controller) - QEMU virt at 0x0C000000
+#define PLIC_BASE        0x0C000000L
+#define PLIC_PRIORITY(id)    (PLIC_BASE + (id) * 4)
+#define PLIC_PENDING(id)     (PLIC_BASE + 0x1000 + ((id) / 32) * 4)
+#define PLIC_ENABLE(hart, id) (PLIC_BASE + 0x2000 + (hart) * 0x80 + ((id) / 32) * 4)
+#define PLIC_THRESHOLD(hart) (PLIC_BASE + 0x200000 + (hart) * 0x1000)
+#define PLIC_CLAIM(hart)     (PLIC_BASE + 0x200004 + (hart) * 0x1000)
+#define UART0_IRQ            10
 
 // ==================== Inline CSR Read/Write Functions ====================
 

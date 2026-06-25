@@ -50,6 +50,8 @@ void            kerneltrap();
 // PLIC (interrupt controller)
 void            plicinit(void);
 void            plicinithart(void);
+uint32          plic_claim(void);            // Claim pending interrupt (returns irq id)
+void            plic_complete(uint32 irq);   // Complete interrupt handling
 
 // Console/UART
 void            consoleinit(void);
