@@ -116,7 +116,7 @@ int     exec(char *, char **);
 void    syscall(void);
 int     argint(int, int *);
 int     argaddr(int, uint64 *);
-int     argstr(int, char *);
+int     argstr(int, char *, int);
 int     fetchaddr(uint64, uint64 *);
 int     fetchstr(uint64, char *, int);
 
