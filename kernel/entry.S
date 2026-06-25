@@ -1,25 +1,29 @@
 # entry.S - RISC-V kernel entry point
-# This is where QEMU starts executing after loading kernel at 0x80000000
-
 .section .text.init
 .global _start
 
 _start:
-    # Set up a stack for C code.
-    # Stack pointer grows downward, place it at end of 4KB page
-    la      sp, stack0
-    li      sp, 4096
-    add     sp, sp, sp
+    # Set up stack (4KB)
+    la  sp, stack0
+    li  a0, 4096
+    add sp, sp, a0
 
-    # Jump to start() in start.c
-    call    start
+    # Clear BSS
+    la  a0, edata
+    la  a1, end
+1:  bgeu a0, a1, 2f
+    sb  zero, 0(a0)
+    addi a0, a0, 1
+    j    1b
+2:
+    # Call main()
+    call main
 
-    # Should never return from start()
+    # Should never return
 1:  wfi
-    j       1b
+    j   1b
 
-# Allocate 4KB of initial stack space
 .section .bss
-.align   3
+.align 3
 stack0:
     .space 4096
