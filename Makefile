@@ -17,7 +17,6 @@ QEMUOPTS = -machine virt -bios none -kernel $(K)/kernel -m 128M -smp $(CPUS) -no
 
 OBJS = \
   $(K)/entry.o \
-  $(K)/start.o \
   $(K)/console.o \
   $(K)/exec.o \
   $(K)/kalloc.o \
