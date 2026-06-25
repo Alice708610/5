@@ -193,7 +193,8 @@ growproc(int n)
         if ((sz = uvmalloc(p->pagetable, sz, sz + n)) == 0)
             return -1;
     } else if (n < 0) {
-        sz = uvmdealloc(p->pagetable, sz, sz + n);
+        uvmdealloc(p->pagetable, sz, sz + n);
+        sz += n;
     }
     p->sz = sz;
     return 0;
@@ -283,8 +284,10 @@ exit(int status)
     w_sstatus(r_sstatus() & ~SSTATUS_SIE);
     struct cpu *c = mycpu();
     swtch(&p->context, &c->context);
-
-    panic("exit: zombie exit returned");
+    
+    // Should never reach here - scheduler never returns to a zombie process
+    for (;;)
+        ;
 }
 
 // Wait for a child process to exit
