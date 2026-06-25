@@ -4,8 +4,8 @@ AS = $(CROSS_COMPILE)as
 LD = $(CROSS_COMPILE)ld
 CC = $(CROSS_COMPILE)gcc
 CPP = $(CC) -E
-OBJCOPY = $(CROSS_COMPILE)objcopy
-OBJDUMP = $(CROSS_COMPILE)objdump
+OBJCOPY = $(CROSS_COPY)objcopy
+OBJDUMP = $(CROSS_COPY)objdump
 
 CFLAGS = -Wall -Werror -O2 -ffreestanding -fno-common -nostdlib -fno-pic -fno-stack-protector -fno-pie -mcmodel=medany -march=rv64imafdc -mabi=lp64d
 
