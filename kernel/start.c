@@ -2,6 +2,7 @@
 // Called by entry.S before main()
 
 #include "types.h"
+#include "param.h"
 #include "riscv.h"
 #include "memlayout.h"
 #include "spinlock.h"

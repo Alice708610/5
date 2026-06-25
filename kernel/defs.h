@@ -1,11 +1,12 @@
 // defs.h - Kernel function declarations for ZephyrOS
 
+#include "types.h"
+#include "param.h"
+
 struct context;
 struct spinlock;
 struct proc;
 struct trapframe;
-typedef uint64 pagetable_t;
-typedef struct cpu cpu;
 
 // Memory management
 void            kinit(void);
