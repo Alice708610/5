@@ -54,6 +54,8 @@ void            plicinithart(void);
 // Console/UART
 void            consoleinit(void);
 void            consoleintr(int);
+void            uartputc(int);              // UART output one char
+int             uartgetc(void);             // UART input one char (-1=none)
 void            panic(char *s);
 
 // Spinlock

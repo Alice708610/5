@@ -61,12 +61,5 @@ consoleinit(void)
   uart_initialized = 1;
 }
 
-// Console interrupt handler - called from trap.c
-void
-consoleintr(int c)
-{
-  if (c >= 0) {
-    // Echo back
-    uartputc(c);
-  }
-}
+// UART interrupt: check if data available, return char or -1
+// Actual processing is done by consoleintr() in console.c
