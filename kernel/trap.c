@@ -169,18 +169,9 @@ usertrapret(void)
 
     // Jump to userret in trampoline.S
     uint64 trampoline_userret = TRAMPOLINE + (userret - trampoline);
-    // Set up arguments for trampoline's userret:
-    //   a0 = p->trapframe, a1 = satp
-    // Then jump to userret via t0 (temporary register)
-    register uint64 t0_fn asm("t0") = trampoline_userret;
-    asm volatile(
-        "mv a0, %0\n"
-        "mv a1, %1\n"
-        "jalr zero, t0"
-        : 
-        : "r"(p->trapframe), "r"(satp), "r"(t0_fn)
-        : "memory", "a0", "a1", "t0"
-    );
+    // Set up arguments and jump to userret via function pointer call
+    typedef void (*fn_t)(uint64, uint64);
+    ((fn_t)(trampoline_userret))((uint64)p->trapframe, satp);
 }
 
 // Kernel trap handler (interrupts in kernel mode)
