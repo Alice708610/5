@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "printf.h"
+#include "defs.h"
 
 void main(void);
 
