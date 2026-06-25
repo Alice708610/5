@@ -26,10 +26,12 @@ struct proc {
 };
 
 struct cpu {
+  struct context context;       // swtch() here to scheduler
   struct proc *proc;           // Current running process
-  struct spinlock lock;        // Interrupt safety
+  struct spinlock lock;        // Interrupt safety (for this cpu)
   int noff;                    // Push_off nesting depth
   int intena;                  // Were interrupts enabled before push_off?
+  char name[16];               // CPU name (debugging)
 };
 
 extern struct proc proc[NPROC];

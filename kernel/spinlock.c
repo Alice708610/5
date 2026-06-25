@@ -51,3 +51,26 @@ holding(struct spinlock *lk)
   r = lk->locked && lk->cpu == mycpu();
   return r;
 }
+
+// Disable interrupts (for lock nesting)
+void
+push_off(void)
+{
+  struct cpu *c = mycpu();
+  uint64 old = r_sstatus();
+  // Clear SIE bit in sstatus
+  w_sstatus(old & ~SSTATUS_SIE);
+  c->intena = (old & SSTATUS_SIE) != 0;
+  c->noff++;
+}
+
+// Re-enable interrupts after push_off()
+void
+pop_off(void)
+{
+  struct cpu *c = mycpu();
+  if (--c->noff < 0)
+    panic("pop_off: noff underflow");
+  if (c->intena && c->noff == 0)
+    intr_on();   // Re-enable interrupts by setting SIE bit
+}

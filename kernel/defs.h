@@ -63,6 +63,8 @@ void            initlock(struct spinlock *, char *);
 void            acquire(struct spinlock *);
 void            release(struct spinlock *);
 int             holding(struct spinlock *);
+void            push_off(void);           // Disable interrupts for lock nesting
+void            pop_off(void);            // Re-enable interrupts after push_off
 
 // Context switch
 void            swtch(struct context *, struct context *);
