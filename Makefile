@@ -20,6 +20,7 @@ OBJS = \
   $(K)/console.o \
   $(K)/exec.o \
   $(K)/kalloc.o \
+  $(K)/kernelvec.o \
   $(K)/main.o \
   $(K)/plic.o \
   $(K)/printf.o \
